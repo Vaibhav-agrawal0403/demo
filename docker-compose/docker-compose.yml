@@ -1,0 +1,40 @@
+services:
+  query:
+    image: vaibhavagrawal036/query:1.0.0
+    container_name: "query"
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      start_period: 5s
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    networks:
+      - lmsNetwork
+
+
+#  accounts:
+#    image: vaibhavagrawal036/accounts:1.0.0
+#    container_name: "query"
+#    ports:
+#      - "8080:8080"
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700m
+#    depends_on:
+#      configserver:
+#        condition: service_healthy
+#    environment:
+#      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+#    networks:
+#      - synergybank
+
+networks:
+  lmsNetwork:
+    driver: "bridge"
