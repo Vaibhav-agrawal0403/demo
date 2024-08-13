@@ -20,7 +20,7 @@ public class QueryController {
     private IQueryService iQueryService;
 
     // Put your question on database
-    @PostMapping("/create")
+    @PostMapping("/created")
     public ResponseEntity<ResponseDto> createQuery(@RequestBody QueryDto queryDto){
         iQueryService.createQuery(queryDto);
         return ResponseEntity.status(HttpStatus.CREATED)
